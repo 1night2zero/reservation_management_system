@@ -36,14 +36,6 @@ public:
     //代理预约
     void proxyAppointment();
 
-    //添加游客
-    void addVisitor();
-
-    //修改游客信息
-    void changeVisitorInfo();
-
-    //删除游客
-    void deleteVisitor();
 
     //获取游客列表
     void getVisitorList();
@@ -53,5 +45,14 @@ public:
 
     //游客数量
     int vNum = 0;
+
+    //添加游客
+    void addVisitor();
+
+    //删除游客
+    void deleteVisitor();
+
+    //修改游客信息
+    void changeVisitorInfo();
 };
 

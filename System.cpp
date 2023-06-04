@@ -4,7 +4,7 @@
 #include "Admin.h"
 
 //判断用户信息是否存在
-bool isInfoExist(string myName, string idNum = "", string phoneNum = "") {
+bool isInfoExist(string idNum = "", string phoneNum = "") {
     ifstream in(VISITOR_FILE, ios::in);
     if (!in.is_open()) {
         cout << "文件不存在" << endl;
@@ -13,7 +13,7 @@ bool isInfoExist(string myName, string idNum = "", string phoneNum = "") {
     }
     string username, name, id, phone, passwd;
     while (in >> username >> name >> id >> phone >> passwd) {
-        if (myName == name || idNum == id || phoneNum == phone) {
+        if (idNum == id || phoneNum == phone) {
             in.close();
             return true;
         }
@@ -245,11 +245,6 @@ void System::visitorRegister() {
     //姓名
     cout << "请输入你的姓名:" << endl;
     cin >> name;
-    // 检测是否已存在
-    if (isInfoExist(name)) {
-        cout << "该用户已存在！请重新输入！" << endl;
-        this->visitorRegister();
-    }
     //身份证
     cout << "请输入你的身份证号：" << endl;
     while (cin >> idNum) {
@@ -260,7 +255,7 @@ void System::visitorRegister() {
         }
     }
     // 检测是否已存在
-    if (isInfoExist(name, idNum)) {
+    if (isInfoExist(idNum)) {
         cout << "该用户已存在！请重新输入！" << endl;
         this->visitorRegister();
     }
@@ -274,7 +269,7 @@ void System::visitorRegister() {
         }
     }
     // 检测是否已存在
-    if (isInfoExist(name, idNum, phoneNum)) {
+    if (isInfoExist(idNum, phoneNum)) {
         cout << "该用户已存在！请重新输入！" << endl;
         this->visitorRegister();
     }

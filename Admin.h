@@ -37,12 +37,13 @@ class Admin : public User {
     void showAppointment();
 
 public:
-//有参构造
-Admin(string username, string password);
+    //有参构造
+    Admin(string username, string password);
 
-//操作
-void operate();
+    //操作
+    void operate();
 
+    //显示信息
     void showInfo();
 };
 

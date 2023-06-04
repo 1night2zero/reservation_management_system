@@ -92,4 +92,111 @@ void Visitor::getVisitorList() {
     }
 }
 
+void Visitor::addVisitor() {
+    string username, name, idNum, phoneNum, password;
+    cout << "请输入用户名：" << endl;
+    cin >> username;
+    cout << "请输入姓名： " << endl;
+    cin >> name;
+    cout << "请输入身份证号： " << endl;
+    cin >> idNum;
+    cout << "请输入手机号： " << endl;
+    cin >> phoneNum;
+    //检测用户是否存在
+    for (int i = 0; i < vNum; i++) {
+        if (vVisitor[i].username == username) {
+            cout << "该用户已存在！" << endl;
+            return;
+        }
+        if (vVisitor[i].phoneNum == phoneNum) {
+            cout << "该手机号已被注册！" << endl;
+            return;
+        }
+        if (vVisitor[i].idNum == idNum) {
+            cout << "该身份证号已被注册！" << endl;
+            return;
+        }
+    }
+    password = idNum.substr(idNum.length() - 6, 6);
+    vVisitor.emplace_back(username, name, idNum, phoneNum, password);
+    vNum++;
+    cout << "添加成功！默认密码为身份证后六位" << endl;
+    //刷新文件
+    ofstream out(VISITOR_FILE, ios::trunc);
+    for (int i = 0; i < vNum; ++i) {
+        out << vVisitor[i].username << "\t" << vVisitor[i].name << "\t" << vVisitor[i].idNum << "\t"
+            << vVisitor[i].phoneNum << "\t" << vVisitor[i].password << endl;
+    }
+    out.close();
+}
+
+void Visitor::deleteVisitor() {
+    string name;
+    cout << "请输入要删除的游客姓名： " << endl;
+    cin >> name;
+    for (int i = 0; i < vNum; i++) {
+        if (vVisitor[i].name == name) {
+            vVisitor.erase(vVisitor.begin() + i);
+            vNum--;
+            cout << "删除成功！" << endl;
+            //刷新文件
+            ofstream out(VISITOR_FILE, ios::trunc);
+            for (int i = 0; i < vNum; ++i) {
+                out << vVisitor[i].username << "\t" << vVisitor[i].name << "\t" << vVisitor[i].idNum << "\t"
+                    << vVisitor[i].phoneNum << "\t" << vVisitor[i].password << endl;
+            }
+            out.close();
+            return;
+        }
+    }
+    cout << "未找到该游客！" << endl;
+}
+
+void Visitor::changeVisitorInfo() {
+    string username;
+    cout << "请输入要修改的游客用户名： " << endl;
+    cin >> username;
+    for (int i = 0; i < vNum; i++) {
+        if (vVisitor[i].username == username) {
+            cout << "请输入新的用户名： " << endl;
+            cin >> vVisitor[i].username;
+            cout << "请输入新的姓名： " << endl;
+            cin >> vVisitor[i].name;
+            cout << "请输入新的身份证号： " << endl;
+            cin >> vVisitor[i].idNum;
+            cout << "请输入新的手机号： " << endl;
+            cin >> vVisitor[i].phoneNum;
+
+            //检测是否已存在
+            for (int i = 0; i < vNum; i++) {
+                if (vVisitor[i].username == username) {
+                    cout << "该用户已存在！" << endl;
+                    return;
+                }
+                if (vVisitor[i].phoneNum == vVisitor[i].phoneNum) {
+                    cout << "该手机号已被注册！" << endl;
+                    return;
+                }
+                if (vVisitor[i].idNum == vVisitor[i].idNum) {
+                    cout << "该身份证号已被注册！" << endl;
+                    return;
+                }
+            }
+
+            cout << "修改成功！" << endl;
+
+
+            //刷新文件
+            ofstream out(VISITOR_FILE, ios::trunc);
+            for (int i = 0; i < vNum; ++i) {
+                out << vVisitor[i].username << "\t" << vVisitor[i].name << "\t" << vVisitor[i].idNum << "\t"
+                    << vVisitor[i].phoneNum << "\t" << vVisitor[i].password << endl;
+            }
+            out.close();
+            return;
+        }
+    }
+    cout << "未找到该游客！" << endl;
+}
+
 

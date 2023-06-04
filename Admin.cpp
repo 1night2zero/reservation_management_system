@@ -1,7 +1,3 @@
-//
-// Created by asus on 2023/6/4.
-//
-
 #include "Admin.h"
 #include "Visitor.h"
 
@@ -53,6 +49,15 @@ void Admin::operate() {
             case 9:
                 this->getVisitorList(); // TODO 根据需求实现所需的功能，还可以加用户的CRUD操作
                 break;
+            case 10:
+                this->addVisitor();
+                break;
+            case 11:
+                this->deleteVisitor();
+                break;
+            case 12:
+                this->changeVisitorInfo();
+                break;
             case 0:
                 return;
             default:
@@ -69,7 +74,26 @@ void Admin::showInfo() {
     cout << "hello world" << endl;
 }
 
+//获取游客列表
 void Admin::getVisitorList() {
     Visitor v;
     v.getVisitorList();
+}
+
+//添加游客
+void Admin::addVisitor() {
+    Visitor v;
+    v.addVisitor();
+}
+
+//删除游客
+void Admin::deleteVisitor() {
+    Visitor v;
+    v.deleteVisitor();
+}
+
+//修改游客信息
+void Admin::changeVisitorInfo() {
+    Visitor v;
+    v.changeVisitorInfo();
 }
