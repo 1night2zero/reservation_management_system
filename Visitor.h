@@ -1,6 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
+
+#include "File.h"
 #include "User.h"
 
 class Visitor : public User {
@@ -13,7 +16,7 @@ public:
     Visitor();
 
     //有参构造
-    Visitor(string username, string name, string idNum, string phoneNum,string password);
+    Visitor(string username, string name, string idNum, string phoneNum, string password);
 
     //界面
     virtual void page();
@@ -33,5 +36,22 @@ public:
     //代理预约
     void proxyAppointment();
 
+    //添加游客
+    void addVisitor();
+
+    //修改游客信息
+    void changeVisitorInfo();
+
+    //删除游客
+    void deleteVisitor();
+
+    //获取游客列表
+    void getVisitorList();
+
+    //游客容器
+    vector<Visitor> vVisitor;
+
+    //游客数量
+    int vNum = 0;
 };
 

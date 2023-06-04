@@ -3,6 +3,7 @@
 //
 
 #include "Admin.h"
+#include "Visitor.h"
 
 Admin::Admin() = default;
 
@@ -32,6 +33,8 @@ void Admin::page() {
     cout << "\t\t|                                |\n";
     cout << "\t\t|          8.删除预约             |\n";
     cout << "\t\t|                                |\n";
+    cout << "\t\t|          9.获取游客列表          |\n";
+    cout << "\t\t|                                |\n";
     cout << "\t\t|          0.注销登录            |\n";
     cout << "\t\t|                                |\n";
     cout << "\t\t ---------------------------------\n";
@@ -47,6 +50,9 @@ void Admin::operate() {
             case 1:
                 this->showInfo(); // TODO 根据需求实现所需的功能，还可以加用户的CRUD操作
                 break;
+            case 9:
+                this->getVisitorList(); // TODO 根据需求实现所需的功能，还可以加用户的CRUD操作
+                break;
             case 0:
                 return;
             default:
@@ -61,4 +67,9 @@ void Admin::operate() {
 //展示信息
 void Admin::showInfo() {
     cout << "hello world" << endl;
+}
+
+void Admin::getVisitorList() {
+    Visitor v;
+    v.getVisitorList();
 }

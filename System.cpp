@@ -98,6 +98,7 @@ bool isPhoneNum(string phoneNum) {
     return regex_match(phoneNum, pattern);
 }
 
+//获取游客数量
 int System::getVisitorNum() {
     ifstream in(VISITOR_FILE, ios::in);
     if (!in.is_open()) {
