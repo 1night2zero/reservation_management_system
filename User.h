@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
+#include "Attraction.h"
+#include "Form.h"
 
 using namespace std;
 
@@ -15,17 +18,24 @@ public:
 
     virtual void page() = 0;
 
-    //查看景点名称 预约数量 TODO
-
-    //查看景点在该时间下是否有余量 TODO
-
-    //旅游景点信息的容器 TODO
+    //旅游景点信息的容器
+    vector<Attraction> vAttractions;
 
     //预约订单容器 TODO
+    vector<Form> vForm;
 
-    //游客信息容器 TODO
+    //显示景区列表
+    void showAttractions();
 
+    //添加景区
+    void addAttraction();
 
+    //删除景区
+    void deleteAttraction();
+
+    //初始化容器
+    void initVAttractions();
+    void initVForm();
 };
 
 

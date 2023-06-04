@@ -61,6 +61,12 @@ void Visitor::operate() {
             case 4:
                 this->proxyAppointment();
                 break;
+            case 9:
+                this->getVisitorList();
+                break;
+            case 10:
+                this->showAttractions();
+                break;
             case 0:
                 return;
             default:
