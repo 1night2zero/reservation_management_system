@@ -40,8 +40,8 @@ public:
     //游客容器
     vector<Visitor> vVisitor;
 
-    //游客数量
-    int vNum = 0;
+    //代理游客数量
+    int proxyNum = 0;
 
     //添加游客
     void addVisitor();

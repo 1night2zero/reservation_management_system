@@ -180,7 +180,7 @@ void User::changeForm() {
 //预约景区并生成预约码
 void User::makeAppointment() {
     string attractionsName, name, phoneNum, serial;
-    int day, aorp, Had[2][2];
+    int day, aorp;
     cout << "请输入景区名称：";
     cin >> attractionsName;
     cout << "请输入姓名：";
