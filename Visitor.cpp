@@ -39,8 +39,15 @@ void Visitor::page() {
 
 void Visitor::operate() {
     this->page();
-    int ch = 0;
-    while (cin >> ch) {
+    int ch;
+    string in;
+    while (cin >> in) {
+        try {
+            ch = stoi(in);
+        } catch (exception &e) {
+            cout << "请输入正确的选项!\n";
+            continue;
+        }
         switch (ch) {
             case 1:
                 this->makeAppointment();
@@ -153,19 +160,22 @@ void Visitor::deleteVisitor() {
 }
 
 void Visitor::changeVisitorInfo() {
-    string username;
+    string username, name, idNum, phoneNum, password;
+    cout << "提示：直接输入回车不会修改信息" << endl;
     cout << "请输入要修改的游客用户名： " << endl;
     cin >> username;
     for (int i = 0; i < vNum; i++) {
         if (vVisitor[i].username == username) {
+            //回车不修改
             cout << "请输入新的用户名： " << endl;
-            cin >> vVisitor[i].username;
+            cin >> username;
             cout << "请输入新的姓名： " << endl;
-            cin >> vVisitor[i].name;
+            cin >> name;
             cout << "请输入新的身份证号： " << endl;
-            cin >> vVisitor[i].idNum;
+            cin >> idNum;
             cout << "请输入新的手机号： " << endl;
-            cin >> vVisitor[i].phoneNum;
+            cin >> phoneNum;
+
 
             //检测是否已存在
             for (int i = 0; i < vNum; i++) {
@@ -173,16 +183,23 @@ void Visitor::changeVisitorInfo() {
                     cout << "该用户已存在！" << endl;
                     return;
                 }
-                if (vVisitor[i].phoneNum == vVisitor[i].phoneNum) {
+                if (vVisitor[i].phoneNum == phoneNum) {
                     cout << "该手机号已被注册！" << endl;
                     return;
                 }
-                if (vVisitor[i].idNum == vVisitor[i].idNum) {
+                if (vVisitor[i].idNum == idNum) {
                     cout << "该身份证号已被注册！" << endl;
                     return;
                 }
+                if (username != "\\")
+                    vVisitor[i].username = username;
+                if (username != "\\")
+                    vVisitor[i].name = name;
+                if (username != "\\")
+                    vVisitor[i].idNum = idNum;
+                if (username != "\\")
+                    vVisitor[i].phoneNum = phoneNum;
             }
-
             cout << "修改成功！" << endl;
 
 

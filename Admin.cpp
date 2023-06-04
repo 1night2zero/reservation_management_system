@@ -40,8 +40,17 @@ void Admin::page() {
 //操作
 void Admin::operate() {
     this->page();
-    int ch = 0;
-    while (cin >> ch) {
+
+    string in;
+    int ch;
+
+    while (cin >> in) {
+        try {
+            ch = stoi(in);
+        } catch (exception &e) {
+            cout << "请输入正确的选项!\n";
+            continue;
+        }
         switch (ch) {
             case 1:
                 this->showInfo(); // TODO 根据需求实现所需的功能，还可以加用户的CRUD操作

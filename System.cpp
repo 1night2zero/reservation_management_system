@@ -132,8 +132,15 @@ void System::Start() {
         cout << "*                                                   *\n";
         cout << "*                                                   *\n";
         cout << "*****************************************************\n";
+        string in;
         int ch;
-        cin >> ch;
+        cin >> in;
+        try {
+            ch = stoi(in);
+        } catch (exception &e) {
+            cout << "请输入正确的选项!\n";
+            continue;
+        }
         switch (ch) {
             case 0:
                 login(0);
@@ -188,13 +195,20 @@ void System::login(int type) {
             }
         }
         cout << "没有这个用户，请检查用户名和密码！" << endl;
-        int ch;
         cout << "*******************************************\n";
         cout << "*              请选择你的操作             *\n";
         cout << "*                                         *\n";
         cout << "*        1.重新登录     2.回到主页        *\n";
         cout << "*******************************************\n";
-        cin >> ch;
+        string inpt;
+        int ch;
+        cin >> inpt;
+        try {
+            ch = stoi(inpt);
+        } catch (exception &e) {
+            cout << "请输入正确的选项!\n";
+            this->login(1);
+        }
         switch (ch) {
             case 1:
                 this->login(1);
@@ -218,13 +232,20 @@ void System::login(int type) {
             }
         }
         cout << "没有这个管理员，请检查用户名和密码！" << endl;
-        int ch;
         cout << "*******************************************\n";
         cout << "*              请选择你的操作               *\n";
         cout << "*                                         *\n";
         cout << "*        1.重新登录     2.回到主页          *\n";
         cout << "*******************************************\n";
-        cin >> ch;
+        string inpt;
+        int ch;
+        cin >> inpt;
+        try {
+            ch = stoi(inpt);
+        } catch (exception &e) {
+            cout << "请输入正确的选项!\n";
+            this->login(0);
+        }
         switch (ch) {
             case 1:
                 this->login(0);
