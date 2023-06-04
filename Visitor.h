@@ -24,9 +24,6 @@ public:
     //操作
     void operate();
 
-    //预约
-    void makeAppointment();
-
     //查看预约
     void showAppointment();
 
@@ -54,5 +51,7 @@ public:
 
     //修改游客信息
     void changeVisitorInfo();
+
+    void booking();
 };
 

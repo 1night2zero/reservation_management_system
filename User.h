@@ -35,7 +35,28 @@ public:
 
     //初始化容器
     void initVAttractions();
+
     void initVForm();
+
+    void changeAttraction();
+
+    void getFormList();
+
+    void addForm();
+
+    void deleteForm();
+
+    void changeForm();
+
+    static string generateCode();
+
+    void makeAppointment();
+
+    void updateAttractionsFile();
+
+    void updateFormFile();
+
+    string makeSerialCode();
 };
 
 

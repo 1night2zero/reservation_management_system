@@ -7,7 +7,7 @@ using std::string;
 class Attraction {
 
 public:
-    string attractionsName;    //景点名称
+    string attractionName;    //景点名称
     Attraction();
 
     Attraction(string name, int day, int aorp, int maxNum, int Had[2][2]);

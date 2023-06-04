@@ -2,11 +2,13 @@
 
 Form::Form() = default;
 
-Form::Form(string attractionName, string name, string phoneNum, string serial, int state) {
-    this->attractionsName = attractionName;
-    this->name = name;
-    this->phoneNum = phoneNum;
-    this->serial = serial;
+Form::Form(string attractionName, string name, string phoneNum, string serial, int day, int aorp, int state) {
+    this->attractionName = std::move(attractionName);
+    this->name = std::move(name);
+    this->phoneNum = std::move(phoneNum);
+    this->serial = std::move(serial);
+    this->day = day;
+    this->aorp = aorp;
     this->state = state;
 }
 

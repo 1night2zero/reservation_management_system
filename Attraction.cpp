@@ -8,7 +8,7 @@ Attraction::Attraction() = default;
 
 
 Attraction::Attraction(string name, int day, int aorp, int maxNum, int Had[2][2]) {
-    this->attractionsName = name;
+    this->attractionName = name;
     this->day = day;
     this->aorp = aorp;
     this->maxNum = maxNum;
