@@ -13,7 +13,7 @@ User::User() {
 
 //输出景区信息
 void User::showAttractions() {
-
+    cout << "景区列表如下：" << endl;
     cout << "景区名称\t日期\t\t时间段\t最大容量\t已预约人数" << endl;
     for (auto &vAttraction: vAttractions) {
         cout << vAttraction.attractionName << "\t\t"
@@ -41,6 +41,8 @@ void User::addAttraction() {
     Attraction attraction(attractionsName, day, aorp, maxNum, Had);
     vAttractions.push_back(attraction);
     cout << "添加成功" << endl;
+    //刷新文件
+    updateAttractionsFile();
 }
 
 //删除景区信息
@@ -52,6 +54,8 @@ void User::deleteAttraction() {
         if (it->attractionName == attractionsName) {
             vAttractions.erase(it);
             cout << "删除成功" << endl;
+            //刷新文件
+            updateAttractionsFile();
             return;
         }
     }
@@ -102,7 +106,7 @@ void User::getFormList() {
 }
 
 //添加预约单
-void User::addForm() {
+void User::addForm() {      //makeAppointment和两个能用一个就行
     string attractionsName, name, phoneNum, serial;
     int day, aorp, state;
     cout << "请输入景区名称：";
@@ -122,6 +126,8 @@ void User::addForm() {
     Form form(attractionsName, name, phoneNum, serial, day, aorp, state);
     vForm.push_back(form);
     cout << "添加成功" << endl;
+    //刷新文件
+    updateFormFile();
 }
 
 //删除预约单
@@ -133,6 +139,8 @@ void User::deleteForm() {
         if (it->serial == serial) {
             vForm.erase(it);
             cout << "删除成功" << endl;
+            //刷新文件
+            updateFormFile();
             return;
         }
     }
@@ -161,6 +169,8 @@ void User::changeForm() {
             cout << "请输入新的状态（0未处理 1已预约 -1已取消）：";
             cin >> form.state;
             cout << "修改成功" << endl;
+            //更新文件内容
+            updateFormFile();
             return;
         }
     }
@@ -182,21 +192,20 @@ void User::makeAppointment() {
     cout << "请输入时间段（0为上午，1为下午）：";
     cin >> aorp;
     for (auto &vAttraction: vAttractions) {
-        if (vAttraction.attractionName == attractionsName) {
-            if (vAttraction.day == day && vAttraction.aorp == aorp) {
-                if (vAttraction.Had[day][aorp] < vAttraction.maxNum) {
-                    vAttraction.Had[day][aorp]++;
-                    serial = attractionsName + generateCode();
-                    Form form(attractionsName, name, phoneNum, serial, day, aorp, 1);
-                    vForm.push_back(form);
-                    cout << "预约成功，您的预约码为：" << serial << endl;
-                    return;
-                } else {
-                    cout << "该时间段已预约满" << endl;
-                    return;
-                }
+        if (vAttraction.attractionName == attractionsName && vAttraction.day == day && vAttraction.aorp == aorp) {
+            if (vAttraction.Had[day][aorp] < vAttraction.maxNum) {
+                vAttraction.Had[day][aorp]++;
+                serial = attractionsName + to_string(day) + to_string(aorp) + to_string(vAttraction.Had[day][aorp]);
+                Form form(attractionsName, name, phoneNum, serial, day, aorp, 0);
+                vForm.push_back(form);
+                cout << "预约成功，您的预约码为：" << serial << endl;
+                //更新文件内容
+                updateAttractionsFile();
+                updateFormFile();
+                return;
             } else {
-                continue;
+                cout << "该时间段已满" << endl;
+                return;
             }
         }
     }

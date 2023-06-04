@@ -25,7 +25,7 @@ void Visitor::page() {
     cout << "\t\t|                                 |\n";
     cout << "\t\t|          1.预约景点             |\n";
     cout << "\t\t|                                 |\n";
-    cout << "\t\t|          2.查看预约记录         |\n";
+    cout << "\t\t|          2.查看我的预约记录         |\n";
     cout << "\t\t|                                 |\n";
     cout << "\t\t|          3.取消预约             |\n";
     cout << "\t\t|                                 |\n";
@@ -50,7 +50,8 @@ void Visitor::operate() {
         }
         switch (ch) {
             case 1:
-                this->makeAppointment();
+                this->showAttractions();
+                this->booking();
                 break;
             case 2:
                 this->showAppointment();
@@ -60,15 +61,6 @@ void Visitor::operate() {
                 break;
             case 4:
                 this->proxyAppointment();
-                break;
-            case 9:
-                this->getVisitorList();
-                break;
-            case 10:
-                this->showAttractions();
-                break;
-            case 11:
-                this->booking();
                 break;
             case 0:
                 return;
@@ -83,49 +75,10 @@ void Visitor::operate() {
 
 //查看我的预约
 void Visitor::showAppointment() {
-
-    ifstream in(FORM_FILE, ios::in);
-    string username, attractionName, serial;
-    int day, aorp, state;
-    cout << "景点名\t预约码\t日期\t时间" << endl;
-    for (int i = 0; i < vForm.size(); ++i) {
-        if (vForm[i].name == this->name && vForm[i].state == 1) {
-            cout << vForm[i].attractionName << "\t" << vForm[i].serial << "\t" << (vForm[i].day == 0 ? "今天" : "明天")
-                 << "\t"
-                 << (vForm[i].aorp == 0 ? "上午" : "下午") << endl;
-        }
-    }
-//    cout << "景点名\t预约码\t日期\t时间" << endl;
-//    while (in >> attractionName >> username >> day >> aorp >> serial >> state) {
-//        if (username == this->username && state == 1) {
-//            cout << attractionName << "\t" << serial << "\t" << (day == 0 ? "今天" : "明天") << "\t"
-//                 << (aorp == 0 ? "上午" : "下午") << endl;
-//        }
-//    }
-//    in.close();
 }
 
 //取消预约
 void Visitor::cancelAppointment() {
-    string code;
-    cout << "请输入您的预约码：" << endl;
-    cin >> code;
-    ifstream in(COMMON_FILE, ios::in);
-    string username, attractionName, date, time, c;
-    vector<string> v;
-    while (in >> username >> attractionName >> date >> time >> c) {
-        if (username == this->username && c == code) {
-            continue;
-        }
-        v.emplace_back(username + "\t" + attractionName + "\t" + date + "\t" + time + "\t" + c);
-    }
-    in.close();
-    ofstream out(COMMON_FILE, ios::trunc);
-    for (int i = 0; i < v.size(); i++) {
-        out << v[i] << endl;
-    }
-    out.close();
-    cout << "取消成功！" << endl;
 }
 
 //代理其他用户预约，最多可以代理3个用户
@@ -134,12 +87,11 @@ void Visitor::proxyAppointment() {
 }
 
 void Visitor::getVisitorList() {
-
-    cout << "共有" << vNum << "个游客" << endl;
+    cout << "共有" << vVisitor.size() << "个游客" << endl;
     cout << "用户名\t姓名\t身份证号\t手机号\t密码" << endl;
-    for (int i = 0; i < vNum; i++) {
-        cout << vVisitor[i].username << "\t" << vVisitor[i].name << "\t" << vVisitor[i].idNum << "\t"
-             << vVisitor[i].phoneNum << "\t" << vVisitor[i].password << endl;
+    for (auto & i : vVisitor) {
+        cout << i.username << "\t" << i.name << "\t" << i.idNum << "\t"
+             << i.phoneNum << "\t" << i.password << endl;
     }
 }
 

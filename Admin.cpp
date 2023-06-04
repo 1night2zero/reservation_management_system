@@ -77,7 +77,7 @@ void Admin::operate() {
                 this->changeAttraction();
                 break;
             case 7:
-                this->addForm();
+                this->makeAppointment();
                 break;
             case 8:
                 this->deleteForm();

@@ -56,7 +56,7 @@ public:
     void changeForm();
 
 
-    //修改密码
+    //预约
     void makeAppointment();
 
     //更新景区信息文件
