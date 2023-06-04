@@ -1,4 +1,7 @@
 #include "System.h"
+#include "User.h"
+#include "Visitor.h"
+#include "Admin.h"
 
 //判断用户信息是否存在
 bool isInfoExist(string myName, string idNum = "", string phoneNum = "") {
@@ -95,6 +98,22 @@ bool isPhoneNum(string phoneNum) {
     return regex_match(phoneNum, pattern);
 }
 
+int System::getVisitorNum() {
+    ifstream in(VISITOR_FILE, ios::in);
+    if (!in.is_open()) {
+        cout << "文件不存在" << endl;
+        in.close();
+        return 0;
+    }
+    int num = 0;
+    string username, name, idNum, phoneNum, passwd;
+    while (in >> username >> name >> idNum >> phoneNum >> passwd) {
+        num++;
+    }
+    in.close();
+    return num;
+}
+
 //默认构造函数
 System::System() = default;
 
@@ -137,18 +156,96 @@ void System::Start() {
 
 //登录
 void System::login(int type) {
+//文件操作
+    string fileName;
+    type ? fileName = VISITOR_FILE : fileName = ADMIN_FILE;
+    ifstream in(fileName, ios::in);
+    if (!in.is_open()) {
+        cout << "文件不存在" << endl;
+        in.close();
+        return;
+    }
 
+    //登录
+    User *user = NULL;
+    string inputUsername, password;
+    cout << "请输入用户名：" << endl;
+    cin >> inputUsername;
+    cout << "请输入密码： " << endl;
+    cin >> password;
+    if (type) { //游客登录
+        string username, name, idNum, phoneNum, passwd;
+        while (in >> username >> name >> idNum >> phoneNum >> passwd) {
+            if (inputUsername == username && password == passwd) {
+                cout << "游客验证登录成功!" << endl;
+                user = new Visitor(username,name, idNum, phoneNum, passwd);
+                Visitor *visitor = (Visitor *) user;
+                visitor->operate();
+                delete visitor;
+                user = NULL;
+                return;
+            }
+        }
+        cout << "没有这个用户，请检查用户名和密码！" << endl;
+        int ch;
+        cout << "*******************************************\n";
+        cout << "*              请选择你的操作             *\n";
+        cout << "*                                         *\n";
+        cout << "*        1.重新登录     2.回到主页        *\n";
+        cout << "*******************************************\n";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                this->login(1);
+                break;
+            case 2:
+                this->Start();
+            default:
+                break;
+        }
+    } else if (type == 0) {   //管理员
+        string usr, passwd;
+        while (in >> usr >> passwd) {
+            if (inputUsername == usr && password == passwd) {
+                cout << "管理员验证登录成功!" << endl;
+                user = new Admin(usr, passwd);
+                Admin *admin = (Admin *) user;
+                admin->operate();
+                delete admin;
+                user = NULL;
+                return;
+            }
+        }
+        cout << "没有这个管理员，请检查用户名和密码！" << endl;
+        int ch;
+        cout << "*******************************************\n";
+        cout << "*              请选择你的操作               *\n";
+        cout << "*                                         *\n";
+        cout << "*        1.重新登录     2.回到主页          *\n";
+        cout << "*******************************************\n";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                this->login(0);
+                break;
+            case 2:
+                this->Start();
+            default:
+                break;
+        }
+    }
+    in.close();
     return;
 }
 
 //注册游客账号
 void System::visitorRegister() {
-    string myName, idNum, phoneNum, password;
+    string name, idNum, phoneNum, password;
     //姓名
     cout << "请输入你的姓名:" << endl;
-    cin >> myName;
+    cin >> name;
     // 检测是否已存在
-    if (isInfoExist(myName)) {
+    if (isInfoExist(name)) {
         cout << "该用户已存在！请重新输入！" << endl;
         this->visitorRegister();
     }
@@ -162,7 +259,7 @@ void System::visitorRegister() {
         }
     }
     // 检测是否已存在
-    if (isInfoExist(myName, idNum)) {
+    if (isInfoExist(name, idNum)) {
         cout << "该用户已存在！请重新输入！" << endl;
         this->visitorRegister();
     }
@@ -176,7 +273,7 @@ void System::visitorRegister() {
         }
     }
     // 检测是否已存在
-    if (isInfoExist(myName, idNum, phoneNum)) {
+    if (isInfoExist(name, idNum, phoneNum)) {
         cout << "该用户已存在！请重新输入！" << endl;
         this->visitorRegister();
     }
@@ -196,7 +293,9 @@ void System::visitorRegister() {
     }
     //添加用户
     ofstream out(VISITOR_FILE, ios::app);
-    out << myName << "\t" << idNum << "\t" << phoneNum << "\t" << password << endl;
+    //预设username为VisitorXXX
+    string username = "Visitor" + to_string(getVisitorNum() + 1);
+    out << username << "\t" << name << "\t" << idNum << "\t" << phoneNum << "\t" << password << endl;
     out.close();
     cout << "注册成功！" << endl;
 }

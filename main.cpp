@@ -1,6 +1,7 @@
-#include <iostream>
+#include "System.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    System sys;
+    sys.Start();
     return 0;
 }

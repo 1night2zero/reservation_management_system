@@ -34,5 +34,7 @@ public:
 
     //注册游客账号
     void visitorRegister();
+
+    static int getVisitorNum();
 };
 
