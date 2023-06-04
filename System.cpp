@@ -11,8 +11,8 @@ bool isInfoExist(string myName, string idNum = "", string phoneNum = "") {
         in.close();
         return false;
     }
-    string name, id, phone, passwd;
-    while (in >> name >> id >> phone >> passwd) {
+    string username, name, id, phone, passwd;
+    while (in >> username >> name >> id >> phone >> passwd) {
         if (myName == name || idNum == id || phoneNum == phone) {
             in.close();
             return true;
@@ -178,7 +178,7 @@ void System::login(int type) {
         while (in >> username >> name >> idNum >> phoneNum >> passwd) {
             if (inputUsername == username && password == passwd) {
                 cout << "游客验证登录成功!" << endl;
-                user = new Visitor(username,name, idNum, phoneNum, passwd);
+                user = new Visitor(username, name, idNum, phoneNum, passwd);
                 Visitor *visitor = (Visitor *) user;
                 visitor->operate();
                 delete visitor;
@@ -294,10 +294,12 @@ void System::visitorRegister() {
     //添加用户
     ofstream out(VISITOR_FILE, ios::app);
     //预设username为VisitorXXX
-    string username = "Visitor" + to_string(getVisitorNum() + 1);
+    string username = "visitor" + to_string(getVisitorNum() + 1);
     out << username << "\t" << name << "\t" << idNum << "\t" << phoneNum << "\t" << password << endl;
     out.close();
     cout << "注册成功！" << endl;
+    cout << "你的用户名为：" << username << endl;
+    this->Start();
 }
 
 
