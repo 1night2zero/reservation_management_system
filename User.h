@@ -16,12 +16,13 @@ public:
     //构造函数
     User();
 
+    //界面
     virtual void page() = 0;
 
     //旅游景点信息的容器
     vector<Attraction> vAttractions;
 
-    //预约订单容器 TODO
+    //预约订单容器
     vector<Form> vForm;
 
     //显示景区列表
@@ -36,27 +37,34 @@ public:
     //初始化容器
     void initVAttractions();
 
+    //初始化预约单容器
     void initVForm();
 
+    //修改景区信息
     void changeAttraction();
 
+    //获取预约单列表
     void getFormList();
 
+    //添加预约单
     void addForm();
 
+    //删除预约单
     void deleteForm();
 
+    //修改预约单
     void changeForm();
 
-    static string generateCode();
 
+    //修改密码
     void makeAppointment();
 
+    //更新景区信息文件
     void updateAttractionsFile();
 
+    //更新预约单文件
     void updateFormFile();
 
-    string makeSerialCode();
 };
 
 

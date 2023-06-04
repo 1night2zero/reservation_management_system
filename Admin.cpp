@@ -29,7 +29,13 @@ void Admin::page() {
     cout << "\t\t|                                |\n";
     cout << "\t\t|          8.删除预约             |\n";
     cout << "\t\t|                                |\n";
-    cout << "\t\t|          9.xxx                 |\n";
+    cout << "\t\t|          9.修改预约信息           |\n";
+    cout << "\t\t|                                |\n";
+    cout << "\t\t|          10.添加游客              |\n";
+    cout << "\t\t|                                |\n";
+    cout << "\t\t|          11.删除游客             |\n";
+    cout << "\t\t|                                |\n";
+    cout << "\t\t|          12.修改游客信息          |\n";
     cout << "\t\t|                                |\n";
     cout << "\t\t|          0.注销登录            |\n";
     cout << "\t\t|                                |\n";
@@ -58,6 +64,27 @@ void Admin::operate() {
             case 2:
                 this->showAttractions();
                 break;
+            case 3:
+                this->getFormList();
+                break;
+            case 4:
+                this->addAttraction();
+                break;
+            case 5:
+                this->deleteAttraction();
+                break;
+            case 6:
+                this->changeAttraction();
+                break;
+            case 7:
+                this->addForm();
+                break;
+            case 8:
+                this->deleteForm();
+                break;
+            case 9:
+                this->changeForm();
+                break;
             case 10:
                 this->addVisitor();
                 break;
@@ -76,11 +103,6 @@ void Admin::operate() {
         }
         cout << "请选择您的操作： " << endl;
     }
-}
-
-//展示信息
-void Admin::showInfo() {
-    cout << "hello world" << endl;
 }
 
 //获取游客列表

@@ -98,6 +98,7 @@ void User::getFormList() {
              << (form.state == 1 ? "已预约" : form.state == -1 ? "已取消" : "未处理")
              << endl;
     }
+    return;
 }
 
 //添加预约单
@@ -202,14 +203,6 @@ void User::makeAppointment() {
     cout << "未找到该景区或该时间段不可用" << endl;
 }
 
-string User::generateCode() {
-    string code;
-    ::srand((unsigned) time(0));
-    for (int i = 0; i < 6; i++) {
-        code[i] = rand() % 10 + '0';
-    }
-    return code;
-}
 
 //初始化
 void User::initVAttractions() {
@@ -286,12 +279,3 @@ void User::updateFormFile() {
     out2.close();
 }
 
-//生成预约码
-string User::makeSerialCode() {
-    string code;
-    srand((unsigned) time(NULL));
-    for (int i = 0; i < 6; i++) {
-        code[i] = rand() % 10 + '0';
-    }
-    return code;
-}
