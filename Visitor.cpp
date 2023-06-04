@@ -161,7 +161,7 @@ void Visitor::deleteVisitor() {
 
 void Visitor::changeVisitorInfo() {
     string username, name, idNum, phoneNum, password;
-    cout << "提示：直接输入回车不会修改信息" << endl;
+    cout << "提示：直接输入xx不会修改信息" << endl;
     cout << "请输入要修改的游客用户名： " << endl;
     cin >> username;
     for (int i = 0; i < vNum; i++) {
@@ -191,17 +191,16 @@ void Visitor::changeVisitorInfo() {
                     cout << "该身份证号已被注册！" << endl;
                     return;
                 }
-                if (username != "\\")
-                    vVisitor[i].username = username;
-                if (username != "\\")
-                    vVisitor[i].name = name;
-                if (username != "\\")
-                    vVisitor[i].idNum = idNum;
-                if (username != "\\")
-                    vVisitor[i].phoneNum = phoneNum;
             }
+            if (username != "xx")
+                vVisitor[i].username = username;
+            if (username != "xx")
+                vVisitor[i].name = name;
+            if (username != "xx")
+                vVisitor[i].idNum = idNum;
+            if (username != "xx")
+                vVisitor[i].phoneNum = phoneNum;
             cout << "修改成功！" << endl;
-
 
             //刷新文件
             ofstream out(VISITOR_FILE, ios::trunc);
